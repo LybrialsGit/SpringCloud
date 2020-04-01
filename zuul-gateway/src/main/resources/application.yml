@@ -1,0 +1,19 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 8765
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka
+
+ribbon:
+  ReadTimeout: 10000 # Timeout of request processing after connection is established
+  ConnectTimeout: 5000 # Time-out for connection establishment
+  MaxAutoRetries: 1 # Number of retries for the current instance
+  MaxAutoRetriesNextServer: 1 # Number of retries for switching instances

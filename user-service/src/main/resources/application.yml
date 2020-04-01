@@ -1,0 +1,28 @@
+spring:
+  jpa:
+    show-sql: true
+  h2:
+    console:
+      enabled: true
+  datasource:
+    platform: h2
+    url: jdbc:h2:mem:example
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+
+server:
+  port: 8000
+
+eureka:
+  client:
+    registerWithEureka: true
+    fetchRegistry: true
+    serviceUrl:
+      defaultZone: http://${EUREKA_HOST:localhost}:${EUREKA_PORT:8761}/eureka
+
+query-parameters:
+  orderBy: lastName

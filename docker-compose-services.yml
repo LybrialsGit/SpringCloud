@@ -1,0 +1,81 @@
+version: "3"
+
+services:
+
+  user-service:
+    build:
+      context: user-service
+      dockerfile: Dockerfile
+    container_name: user-service
+    environment:
+      SPRING_PROFILES_ACTIVE: "development"
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+      EUREKA_HOST: "eureka-server"
+      EUREKA_PORT: "8761"
+    ports:
+      - "8000:8000"
+
+  user-service-2:
+    build:
+      context: user-service
+      dockerfile: Dockerfile
+    container_name: user-service-2
+    environment:
+      SPRING_PROFILES_ACTIVE: "development"
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+      EUREKA_HOST: "eureka-server"
+      EUREKA_PORT: "8761"
+      ZIPKIN_HOST: "zipkin"
+      ZIPKIN_PORT: "9411"
+    ports:
+      - "8001:8000"
+
+  user-service-3:
+    build:
+      context: user-service
+      dockerfile: Dockerfile
+    container_name: user-service-3
+    environment:
+      SPRING_PROFILES_ACTIVE: "development"
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+      EUREKA_HOST: "eureka-server"
+      EUREKA_PORT: "8761"
+      ZIPKIN_HOST: "zipkin"
+      ZIPKIN_PORT: "9411"
+    ports:
+      - "8002:8000"
+
+  user-transformation-service:
+    build:
+      context: user-transformation-service
+      dockerfile: Dockerfile
+    container_name: user-transformation-service
+    environment:
+      SPRING_PROFILES_ACTIVE: "development"
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+      EUREKA_HOST: "eureka-server"
+      EUREKA_PORT: "8761"
+      ZIPKIN_HOST: "zipkin"
+      ZIPKIN_PORT: "9411"
+    ports:
+      - "8100:8100"

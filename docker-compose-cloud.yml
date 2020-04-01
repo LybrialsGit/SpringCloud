@@ -1,0 +1,71 @@
+version: "3"
+
+services:
+
+  rabbitmq:
+    image: bitnami/rabbitmq:latest
+    container_name: rabbitmq
+    environment:
+      RABBITMQ_USERNAME: admin
+      RABBITMQ_PASSWORD: admin
+    ports:
+      - "4369:4369"
+      - "5672:5672"
+      - "15672:15672"
+      - "25672:25672"
+
+  config-server:
+    build:
+      context: config-server
+      dockerfile: Dockerfile
+    container_name: config-server
+    depends_on:
+      - rabbitmq
+    environment:
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+    ports:
+      - "8888:8888"
+
+  eureka-server:
+    build:
+      context: eureka-server
+      dockerfile: Dockerfile
+    container_name: eureka-server
+    depends_on:
+      - rabbitmq
+      - config-server
+    environment:
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+    ports:
+      - "8761:8761"
+
+  zuul-gateway:
+    build:
+      context: zuul-gateway
+      dockerfile: Dockerfile
+    container_name: zuul-gateway
+    depends_on:
+      - rabbitmq
+      - config-server
+      - eureka-server
+    environment:
+      RABBIT_MQ_HOST: "rabbitmq"
+      RABBIT_MQ_PORT: "5672"
+      RABBIT_MQ_URSER_NAME: "admin"
+      RABBIT_MQ_URSER_PASSWORD: "admin"
+      CONFIG_HOST: "config-server"
+      CONFIG_PORT: "8888"
+      EUREKA_HOST: "eureka-server"
+      EUREKA_PORT: "8761"
+      ZIPKIN_HOST: "zipkin"
+      ZIPKIN_PORT: "9411"
+    ports:
+      - "8765:8765"
