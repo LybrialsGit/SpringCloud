@@ -12,7 +12,7 @@ services in a cloud infrastructure.
 - Spring Cloud Netflix Ribbon as client side loadbalancer
 - Spring Cloud Netflix Hystrix for fault tolerance
 - Spring Boot Actuator for config refresh
-- Spring Cloud Bus for automatic config refresh using rabbitmq
+- Spring Cloud Bus for automatic config refresh using apache kafka
 - Spring Cloud Sleuth for tracing
 - Spring Cloud Zipkin for tracing
 
@@ -32,16 +32,21 @@ much sense, it is just an example and it focuses on the cloud infrastructure).
 
 ## Services
 
-### Rabbit MQ
+### Zookeeper
 
 ```yaml
 host: localhost
-ports: 
-  - 5672    # rabbit mq
-  - 15672   # rabbit mq management
+port: 2181
 ```
 
-Use branch `kafka` if you want to use Apache Kafka instead of Rabbit MQ.
+### Kafka
+
+```yaml
+host: localhost
+ports:
+  - 9092
+  - 29092
+```
 
 ### Spring Cloud Config Server
 
@@ -99,6 +104,7 @@ port: 9411
 ## Starting the services
 
 ```shell script
+docker-compose -f docker-compose-kafka.yml up -d --build
 docker-compose -f docker-compose-cloud.yml up -d
 docker-compose -f docker-compose-zipkin.yml up -d
 docker-compose -f docker-compose-services.yml up -d
@@ -126,7 +132,7 @@ http://localhost:8888/actuator/bus-refresh
 ```
 
 The `bus-refresh` endpoint can be called on any service. It will automatically
-trigger the configuration refresh of all services (using rabbitmq and spring cloud bus).
+trigger the configuration refresh of all services (using kafka and spring cloud bus).
 
 ## Using Zuul gateway
 
