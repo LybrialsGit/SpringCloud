@@ -41,6 +41,8 @@ ports:
   - 15672   # rabbit mq management
 ```
 
+Use branch `kafka` if you want to use Apache Kafka instead of Rabbit MQ.
+
 ### Spring Cloud Config Server
 
 ```yaml
