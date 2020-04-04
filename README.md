@@ -105,9 +105,9 @@ port: 9411
 
 ```shell script
 docker-compose -f docker-compose-kafka.yml up -d --build
-docker-compose -f docker-compose-cloud.yml up -d
-docker-compose -f docker-compose-zipkin.yml up -d
-docker-compose -f docker-compose-services.yml up -d
+docker-compose -f docker-compose-cloud.yml up -d --build
+docker-compose -f docker-compose-zipkin.yml up -d --build
+docker-compose -f docker-compose-services.yml up -d --build
 ```
 
 Wait in between until the services are started.
