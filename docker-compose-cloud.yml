@@ -2,30 +2,14 @@ version: "3"
 
 services:
 
-  rabbitmq:
-    image: bitnami/rabbitmq:latest
-    container_name: rabbitmq
-    environment:
-      RABBITMQ_USERNAME: admin
-      RABBITMQ_PASSWORD: admin
-    ports:
-      - "4369:4369"
-      - "5672:5672"
-      - "15672:15672"
-      - "25672:25672"
-
   config-server:
     build:
       context: config-server
       dockerfile: Dockerfile
     container_name: config-server
-    depends_on:
-      - rabbitmq
     environment:
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
     ports:
       - "8888:8888"
 
@@ -35,13 +19,10 @@ services:
       dockerfile: Dockerfile
     container_name: eureka-server
     depends_on:
-      - rabbitmq
       - config-server
     environment:
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
     ports:
@@ -53,14 +34,11 @@ services:
       dockerfile: Dockerfile
     container_name: zuul-gateway
     depends_on:
-      - rabbitmq
       - config-server
       - eureka-server
     environment:
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
       EUREKA_HOST: "eureka-server"

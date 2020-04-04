@@ -6,8 +6,6 @@ services:
     image: openzipkin/zipkin
     container_name: zipkin
     environment:
-      RABBIT_ADDRESSES: "rabbitmq:5672"
-      RABBIT_USER: "admin"
-      RABBIT_PASSWORD: "admin"
+      KAFKA_BOOTSTRAP_SERVERS: "kafka:9092"
     ports:
       - "9411:9411"

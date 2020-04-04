@@ -9,10 +9,8 @@ services:
     container_name: user-service
     environment:
       SPRING_PROFILES_ACTIVE: "development"
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
       EUREKA_HOST: "eureka-server"
@@ -27,10 +25,8 @@ services:
     container_name: user-service-2
     environment:
       SPRING_PROFILES_ACTIVE: "development"
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
       EUREKA_HOST: "eureka-server"
@@ -46,11 +42,8 @@ services:
       dockerfile: Dockerfile
     container_name: user-service-3
     environment:
-      SPRING_PROFILES_ACTIVE: "development"
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
       EUREKA_HOST: "eureka-server"
@@ -67,10 +60,8 @@ services:
     container_name: user-transformation-service
     environment:
       SPRING_PROFILES_ACTIVE: "development"
-      RABBIT_MQ_HOST: "rabbitmq"
-      RABBIT_MQ_PORT: "5672"
-      RABBIT_MQ_URSER_NAME: "admin"
-      RABBIT_MQ_URSER_PASSWORD: "admin"
+      KAFKA_BROKER_HOST: "kafka"
+      KAFKA_BROKER_PORT: "9092"
       CONFIG_HOST: "config-server"
       CONFIG_PORT: "8888"
       EUREKA_HOST: "eureka-server"

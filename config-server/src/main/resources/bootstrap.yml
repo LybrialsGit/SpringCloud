@@ -1,8 +1,15 @@
 spring:
   application:
     name: config-server
-  rabbitmq:
-    host: ${RABBIT_MQ_HOST:localhost}
-    port: ${RABBIT_MQ_PORT:5672}
-    username: ${RABBIT_MQ_URSER_NAME:guest}
-    password: ${RABBIT_MQ_URSER_PASSWORD:guest}
+  cloud:
+    config:
+      server:
+        git:
+          uri: "https://github.com/LybrialsGit/config-repository.git"
+          cloneOnStart: true
+    stream:
+      kafka:
+        binder:
+          brokers: ${KAFKA_BROKER_HOST:localhost}:${KAFKA_BROKER_PORT:9092}
+  kafka:
+    bootstrapServers: ${KAFKA_BROKER_HOST:localhost}:${KAFKA_BROKER_PORT:9092}
